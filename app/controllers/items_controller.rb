@@ -8,5 +8,9 @@ class ItemsController < ApplicationController
     
   end
 
-  
+  def create
+    
+  end
+
+
 end
