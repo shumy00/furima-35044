@@ -5,7 +5,7 @@ FactoryBot.define do
     last_name { '田中' }
     first_name { '太郎' }
     password { 'abc123' }
-    encrypted_password { 'abc123' }
+    password_confirmation { 'abc123' }
     last_kana_name { 'タナカ' }
     first_kana_name { 'タロウ' }
     birthday { '20001010' }
