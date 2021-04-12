@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
 
     context '内容に問題がない場合' do
       it '全ての値が正しく入力されていれば保存できること' do
+        @user.valid?
       end
     end
     
@@ -28,9 +29,11 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it 'emailは同じアドレスが存在していると登録できない' do
-        user = User.new(nickname: 'taro', email: 'test@example', password:'abc123', encrypted_password: 'abc123', last_name: '太郎', first_name: '田中', last_kana_name: 'タロウ', first_kana_name: 'タナカ', birthday: '20001010')
-        user.valid?
-        expect(user.errors.full_messages).to include("Password confirmation is invalid")
+        @user.save
+        another_user = FactoryBot.build(:user, email: @user.email)
+        another_user.valid?
+        binding.pry
+        expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
       it 'passwordが確認用と一致していないと登録できない' do
         @user.password_confirmation = '123abc'
@@ -53,19 +56,19 @@ RSpec.describe User, type: :model do
         @user.password = 'あb８い９p'
         @user.password_confirmation = 'あb８い９p'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation is invalid")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it 'passwordは英語だけでは登録できない' do
         @user.password = 'abcdef'
         @user.password_confirmation = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation is invalid")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it 'passwordは数字だけでは登録できない' do
         @user.password = '012345'
         @user.password_confirmation = '012345'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation is invalid")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
 
       it 'last_nameが空では登録できない' do
