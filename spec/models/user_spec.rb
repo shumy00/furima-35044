@@ -8,7 +8,6 @@ RSpec.describe User, type: :model do
 
     context '内容に問題がない場合' do
       it '全ての値が正しく入力されていれば保存できること' do
-        expect(@user)
       end
     end
     
@@ -90,9 +89,9 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last kana name can't be blank")
       end
       it 'last_kana_nameがカタカナでないと登録できない' do
-        @user.first_kana_name = 'タナカ'
+        @user.first_kana_name = 'tanaka'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation is invalid")
+        expect(@user.errors.full_messages).to include("First kana name is invalid")
       end
       it 'first_kana_nameが空では登録できない' do
         @user.first_kana_name = ''
