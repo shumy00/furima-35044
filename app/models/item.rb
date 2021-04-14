@@ -8,12 +8,11 @@ class Item < ApplicationRecord
   belongs_to :Shipping_day
   has_one_attached :image
   
-  validates
-  with_options null: false do
+  with_options presence: true do
     validates :title
     validates :catch_copy
-    validates :price
-
+    validates :price, numericality: { only_integer: true,greater_than: 300, less_than: 9999999 }, format:{with:/\A[\d]+\z/}
+    
     with_options numericality: { other_than: 1 } do
       validates :category_id
       validates :status_id
