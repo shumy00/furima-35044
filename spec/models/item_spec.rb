@@ -58,15 +58,45 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
+      it 'カテゴリー情報が１を選択している時、出品できない' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+      it '商品状態情報が１を選択している時、出品できない' do
+        @item.status_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status must be other than 1")
+      end
+      it '発送料情報が１を選択している時、出品できない' do
+        @item.shipping_cost_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping cost must be other than 1")
+      end
+      it '発送元情報が１を選択している時、出品できない' do
+        @item.shipping_area_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping area must be other than 1")
+      end
+      it '発送日数情報が１を選択している時、出品できない' do
+        @item.shipping_day_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
+      end
+      it '販売価格が設定されていなければ、出品できない' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
+      end
       it '販売価格が300円未満の場合、出品できない' do
         @item.price = '299'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than 300")
+        expect(@item.errors.full_messages).to include("Price must be greater than 299")
       end
       it '販売価格が9999999円以上の場合、出品できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than 9999999")
+        expect(@item.errors.full_messages).to include("Price must be less than 10000000")
       end
       it '販売価格は半角数字でなければ、出品できない' do
         @item.price = 'あA'
