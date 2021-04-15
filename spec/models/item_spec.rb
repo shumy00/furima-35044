@@ -89,17 +89,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it '販売価格が300円未満の場合、出品できない' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than 299")
       end
       it '販売価格が9999999円以上の場合、出品できない' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than 10000000")
       end
       it '販売価格は半角数字でなければ、出品できない' do
         @item.price = 'あA'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it '販売価格は半角英語では、出品できない' do
+        @item.price = 'BCA'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it '販売価格は半角英数混合では、出品できない' do
+        @item.price = 'A12B3'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
