@@ -14,16 +14,16 @@ RSpec.describe Item, type: :model do
 
     context '内容に問題がある場合' do
       it '画像がなければ出品できない' do
-        @item.image = ''
+        @item.image = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it '商品名が空では出品できない' do
         @item.title = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Title can't be blank")
       end
-      it '商品説明がなければ出品できない' do
+      it '商品説明が空では出品できない' do
         @item.catch_copy = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Catch copy can't be blank")

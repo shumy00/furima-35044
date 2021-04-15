@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   has_one_attached :image
   
   with_options presence: true do
+    validates :image
     validates :title
     validates :catch_copy
     validates :price, numericality: { only_integer: true,greater_than: 300, less_than: 9999999 }, format:{with:/\A[\d]+\z/}
