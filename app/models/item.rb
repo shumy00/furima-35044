@@ -12,7 +12,7 @@ class Item < ApplicationRecord
     validates :image
     validates :title
     validates :catch_copy
-    validates :price, numericality: { only_integer: true,greater_than: 300, less_than: 9999999 }, format:{with:/\A[\d]+\z/}
+    validates :price, numericality: { only_integer: true,greater_than: 299, less_than: 10000000 }, format:{with:/\A[\d]+\z/}
     
     with_options numericality: { other_than: 1 } do
       validates :category_id
