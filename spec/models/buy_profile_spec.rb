@@ -42,9 +42,7 @@ RSpec.describe BuyProfile, type: :model do
       it '郵便番号にはハイフンがなければ購入できない' do
         @profile.postal_number = "1234567"
         @profile.valid?
-        binding.pry
         expect(@profile.errors.full_messages).to include("Postal number is invalid")
-
       end
       it '電話番号は11桁以内でなければ購入できない' do
         @profile.phone_number = "123456789101"
