@@ -1,5 +1,5 @@
 class Buy < ApplicationRecord
   belongs_to :user
   belongs_to :item
-  has_one    :Profile
+  has_one :Profile
 end
