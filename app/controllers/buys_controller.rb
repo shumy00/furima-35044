@@ -2,6 +2,7 @@ class BuysController < ApplicationController
 
   def index
     @buy_profile = BuyProfile.new
+    @item = Item.find(params[:item_id])
   end
 
   def create
