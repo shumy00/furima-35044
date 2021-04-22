@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, expect: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_item, only: [:edit, :show, :destroy, :update]
   before_action :move_to_index, only: [:edit, :update, :destroy]
   
@@ -21,7 +21,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
@@ -52,7 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless current_user.id == @item.user_id
+    if current_user.id != @item.user_id || @item.buy != nil
       redirect_to action: :index
     end
   end
