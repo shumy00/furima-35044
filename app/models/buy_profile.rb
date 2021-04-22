@@ -7,6 +7,9 @@ class BuyProfile
     validates :address
     validates :phone_number, length: { in: 10..11 }, format:{with:/\A[\d]+\z/}
     validates :token
+    validates :user_id
+    validates :item_id
+
   end
   validates :shipping_area_id, numericality: { other_than: 1 }
 

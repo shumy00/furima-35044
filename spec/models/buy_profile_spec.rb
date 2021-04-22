@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe BuyProfile, type: :model do
   describe '商品の購入' do
     before do
-      @user = FactoryBot.build(:user)
-      @item = FactoryBot.build(:item)
-      @profile = FactoryBot.build(:buy_profile, user_id: @user.id:, item_id: @item.id)
+      @user = FactoryBot.create(:user, email:'a@1')
+      @item = FactoryBot.create(:item)
+      @profile = FactoryBot.build(:buy_profile, user_id: @user.id, item_id: @item.id)
+      sleep(0.5)
     end
 
     context '内容に問題がない場合' do
@@ -65,6 +66,16 @@ RSpec.describe BuyProfile, type: :model do
         @profile.token = nil
         @profile.valid?
         expect(@profile.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと購入できない' do
+        @profile.user_id = ""
+        @profile.valid?
+        expect(@profile.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと購入できない' do
+        @profile.item_id = ""
+        @profile.valid?
+        expect(@profile.errors.full_messages).to include("Item can't be blank")
       end
 
     end

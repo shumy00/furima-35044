@@ -1,7 +1,7 @@
 class BuysController < ApplicationController
-  before_action :buy_item, only: [:index, :create]
-  before_action :authenticate_user!, only: [:index, :create]
-  before_action :move_to_index, only: [:index, :create]
+  before_action :buy_item
+  before_action :authenticate_user!
+  before_action :move_to_index
 
   def index
     @buy_profile = BuyProfile.new
