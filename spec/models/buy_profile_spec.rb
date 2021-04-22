@@ -13,6 +13,9 @@ RSpec.describe BuyProfile, type: :model do
       it '必要な情報が正しく入力されていれば購入できること' do
         expect(@profile).to be_valid
       end
+      it '建物名がなくても購入できる'do
+        @profile.building_name = ""
+      end  
     end
 
     context '内容に問題がある場合' do
