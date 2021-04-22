@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
+    # binding.pry
   end
 
   def edit
@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless current_user.id == @item.user_id
+    unless current_user.id == @item.user_id || @item.buy == []
       redirect_to action: :index
     end
   end

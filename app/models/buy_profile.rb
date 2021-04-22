@@ -1,11 +1,12 @@
 class BuyProfile
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_number, :shipping_area_id, :city, :address, :building_name, :phone_number
+  attr_accessor :user_id, :item_id, :postal_number, :shipping_area_id, :city, :address, :building_name, :phone_number, :token, :price
   with_options presence: true do
     validates :postal_number,format: {with:/\A\d{3}[-]\d{4}\z/}
     validates :city
     validates :address
     validates :phone_number, length: { in: 10..11 }
+    validates :token
   end
   validates :shipping_area_id, numericality: { other_than: 1 }
 

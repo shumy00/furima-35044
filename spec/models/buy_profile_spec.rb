@@ -19,9 +19,9 @@ RSpec.describe BuyProfile, type: :model do
         expect(@profile.errors.full_messages).to include("Postal number can't be blank")
       end
       it '都道府県が空だと購入できない' do
-        @profile.prefecture = ""
+        @profile.shipping_area_id = ""
         @profile.valid?
-        expect(@profile.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@profile.errors.full_messages).to include("Shipping area is not a number")
       end
       it '市町村が空だと購入できない' do
         @profile.city = ""
@@ -48,6 +48,11 @@ RSpec.describe BuyProfile, type: :model do
         @profile.phone_number = "123456789101"
         @profile.valid?
         expect(@profile.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+      end
+      it 'tokenが空では登録できないこと' do
+        @profile.token = nil
+        @profile.valid?
+        expect(@profile.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
