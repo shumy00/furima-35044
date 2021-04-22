@@ -15,6 +15,7 @@ RSpec.describe BuyProfile, type: :model do
       end
       it '建物名がなくても購入できる'do
         @profile.building_name = ""
+        @profile.valid?
       end  
     end
 
