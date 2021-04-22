@@ -4,6 +4,8 @@ RSpec.describe BuyProfile, type: :model do
   describe '商品の購入' do
     before do
       @profile = FactoryBot.build(:buy_profile)
+      @user = FactoryBot.build(:user)
+      @item = FactoryBot.build(:item)
     end
 
     context '内容に問題がない場合' do
@@ -54,6 +56,17 @@ RSpec.describe BuyProfile, type: :model do
         @profile.valid?
         expect(@profile.errors.full_messages).to include("Token can't be blank")
       end
+      it '都道府県が1だと購入できない' do
+        @profile.shipping_area_id = "1"
+        @profile.valid?
+        expect(@profile.errors.full_messages).to include("Shipping area must be other than 1")
+      end
+      it '電話番号に数字以外が含まれていると購入できない' do
+        @profile.phone_number = "abcde-1234"
+        @profile.valid?
+        expect(@profile.errors.full_messages).to include("Phone number is invalid")
+      end
+
     end
   end
 end

@@ -5,7 +5,7 @@ class BuyProfile
     validates :postal_number,format: {with:/\A\d{3}[-]\d{4}\z/}
     validates :city
     validates :address
-    validates :phone_number, length: { in: 10..11 }
+    validates :phone_number, length: { in: 10..11 }, format:{with:/\A[\d]+\z/}
     validates :token
   end
   validates :shipping_area_id, numericality: { other_than: 1 }
